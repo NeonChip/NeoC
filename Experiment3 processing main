@@ -1,0 +1,83 @@
+import processing.serial.*; 
+Serial myPort;
+int sensor0;
+float mappedSensor1;
+
+Drop[] drops = new Drop[500]; 
+
+  
+  import processing.sound.*;
+  
+  SoundFile file;
+  
+  String audioName = "rain.mp3";
+  String path;
+
+PImage img;
+
+void setup() {
+  size(1300, 1000); 
+  printArray(Serial.list());
+  String portName = Serial.list()[6];
+  myPort = new Serial(this, portName, 9600);
+  myPort.bufferUntil('\n');
+  //fullScreen();
+  for (int i = 0; i < drops.length; i++) { 
+    drops[i] = new Drop();
+  }
+  
+
+  path = sketchPath(audioName);
+    file = new SoundFile(this, path);
+    file.loop();
+    
+    //size(1300, 1000); 
+  // Images must be in the "data" directory to load correctly
+  img = loadImage("intro1.jpg");
+}
+    
+  
+ 
+
+
+void draw() {
+  
+  if (sensor0 > 26) {
+  background(223,222,168);
+  } else if (sensor0 > 22) {
+  background (248,192,159);
+  } else if (sensor0 > 18) {
+  background (218,168,223);
+  } else if (sensor0 > 14) {
+  background (168,207,223);
+  } else if (sensor0 > 10 ) {
+  background (223,186,168);
+  } else if (sensor0 < 10 ) {
+  image(img, 0, 0);
+  }
+  
+  
+  
+  for (int i = 0; i < drops.length; i++) {
+    drops[i].fall(); 
+    drops[i].show(); }
+  }
+  
+void serialEvent(Serial myPort) {
+  String myString = myPort.readStringUntil('\n');
+  if (myString != null); {
+    
+    myString = trim(myString);
+  
+    
+     int sensors[] = int(split(myString, ','));
+    for (int sensorNum = 0; sensorNum < sensors.length; sensorNum++) {
+      print("Sensor " + sensorNum + ": " + sensors[sensorNum] + "\t");
+    
+  }
+    
+    println();
+    sensor0 = sensors[0]; 
+    mappedSensor1 = map(sensor0, 0, 1023, height, 0);
+}
+}

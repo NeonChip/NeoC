@@ -1,0 +1,16 @@
+int sensor2val;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+
+  sensor2val = int(analogRead(1)/10);
+
+  Serial.print(sensor2val);
+  Serial.println(",");
+  delay(1000); // the delay is necessary for the serial communication
+
+
+}

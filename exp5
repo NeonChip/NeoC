@@ -15,7 +15,7 @@ rgb_color colors[LED_COUNT];
 
 void setup()
 {
-  servo_test.attach(9);
+  servo_test.attach(2);
   servo_test.writeMicroseconds(1540);
 }
 

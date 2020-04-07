@@ -1,0 +1,30 @@
+////////////////////////////////////////////////////////////////////////////
+
+/*
+Project Title BREATHE IN BREATHE OUT
+Student Name NEO NUOCHEN
+Course Code & Title DIGF-3010-001 Advanced Wearable Electronics
+OCAD University
+Created on 260320
+Based on:
+Cardboard Circuit Playground Express Inchworm Robot
+ by Kathy Ceceri <https://learn.adafruit.com/Cardboard-Robot-Inchworm>
+
+Circuit Playground Express Perk-up Ears
+ by Dave Astels <https://learn.adafruit.com/perk-up-ears>
+*/
+
+input.onLoudSound(function () {
+    light.showAnimation(light.cometAnimation, 2000)
+    music.jumpUp.play()
+    for (let i = 0; i < 5; i++) {
+        servos.A1.setAngle(10)
+        pause(700)
+        servos.A1.setAngle(170)
+        pause(700)
+        servos.A1.setAngle(10)
+    }
+    light.clear()
+})
+music.setVolume(161)
+servos.A1.setAngle(10)
